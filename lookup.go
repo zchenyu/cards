@@ -1,4 +1,4 @@
-package poker
+package cards
 
 const (
 	maxStraightFlush = 10

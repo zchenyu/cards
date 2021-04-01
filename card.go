@@ -1,4 +1,4 @@
-package poker
+package cards
 
 type Card int32
 
@@ -49,6 +49,14 @@ func NewCard(s string) Card {
 	rank := rankInt << 8
 
 	return Card(bitRank | suit | rank | rankPrime)
+}
+
+func NewCards(s string) []Card {
+	cards := []Card{}
+  for i := 0; i < len(s); i += 2 {
+    cards = append(cards, NewCard(s[i:i+2]))
+  }
+  return cards
 }
 
 func (c *Card) MarshalJSON() ([]byte, error) {

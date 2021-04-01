@@ -1,4 +1,4 @@
-package poker
+package cards
 
 import (
 	"math/rand"
@@ -20,6 +20,14 @@ func NewDeck() *Deck {
 	deck := &Deck{}
 	deck.Shuffle()
 	return deck
+}
+
+func (deck *Deck) Copy() *Deck {
+	deck2 := &Deck{
+		cards: make([]Card, len(deck.cards)),
+	}
+	copy(deck2.cards, deck.cards)
+	return deck2
 }
 
 func (deck *Deck) Shuffle() {

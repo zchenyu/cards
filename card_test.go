@@ -1,4 +1,4 @@
-package poker
+package cards
 
 import (
 	"encoding/json"
@@ -16,6 +16,10 @@ func TestRankIntegers(t *testing.T) {
 func TestNewCard(t *testing.T) {
 	assert.Equal(t, Card(268446761), NewCard("Ah"))
 	assert.Equal(t, Card(134224677), NewCard("Ks"))
+}
+
+func TestNewCards(t *testing.T) {
+	assert.Equal(t, []Card{Card(268446761), Card(134224677)}, NewCards("AhKs"))
 }
 
 func TestMarshalJSON(t *testing.T) {
