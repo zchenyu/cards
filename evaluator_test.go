@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/loganjspears/joker/hand"
-
-	_ "github.com/loganjspears/joker/hand"
+	"github.com/notnil/joker/hand"
 	"github.com/stretchr/testify/assert"
 )
 
