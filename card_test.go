@@ -1,6 +1,7 @@
 package cards
 
 import (
+	"encoding"
 	"encoding/json"
 	"testing"
 
@@ -20,6 +21,15 @@ func TestNewCard(t *testing.T) {
 
 func TestNewCards(t *testing.T) {
 	assert.Equal(t, []Card{Card(268446761), Card(134224677)}, NewCards("AhKs"))
+}
+
+func TestMarshalText(t *testing.T) {
+	var c encoding.TextMarshaler
+	c = NewCard("Ah")
+
+	b, err := c.MarshalText()
+	assert.NoError(t, err)
+	assert.Equal(t, "Ah", string(b))
 }
 
 func TestMarshalJSON(t *testing.T) {

@@ -59,11 +59,11 @@ func NewCards(s string) []Card {
   return cards
 }
 
-func (c *Card) MarshalText() ([]byte, error) {
+func (c Card) MarshalText() ([]byte, error) {
 	return []byte(c.String()), nil
 }
 
-func (c *Card) MarshalJSON() ([]byte, error) {
+func (c Card) MarshalJSON() ([]byte, error) {
 	return []byte("\"" + c.String() + "\""), nil
 }
 
