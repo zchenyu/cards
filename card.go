@@ -60,7 +60,7 @@ func NewCards(s string) []Card {
 }
 
 func (c *Card) MarshalText() ([]byte, error) {
-	return []byte(r.String()), nil
+	return []byte(c.String()), nil
 }
 
 func (c *Card) MarshalJSON() ([]byte, error) {
