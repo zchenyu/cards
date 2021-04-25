@@ -22,6 +22,7 @@ func NewDeck() *Deck {
 	return deck
 }
 
+// Copy returns a copy of the deck.
 func (deck *Deck) Copy() *Deck {
 	if deck == nil {
 		return nil
@@ -31,6 +32,15 @@ func (deck *Deck) Copy() *Deck {
 	}
 	copy(deck2.cards, deck.cards)
 	return deck2
+}
+
+// Remove removes a given card from the deck.
+func (deck *Deck) Remove(c Card) {
+	for i, c2 := range deck.cards {
+		if c == c2 {
+			deck.cards = append(deck.cards[:i], deck.cards[i+1:]...)
+		}
+	}
 }
 
 func (deck *Deck) Shuffle() {
