@@ -23,6 +23,9 @@ func NewDeck() *Deck {
 }
 
 func (deck *Deck) Copy() *Deck {
+	if deck == nil {
+		return nil
+	}
 	deck2 := &Deck{
 		cards: make([]Card, len(deck.cards)),
 	}
