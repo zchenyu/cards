@@ -1,5 +1,9 @@
 package cards
 
+import (
+	"errors"
+)
+
 type Card int32
 
 var (
@@ -53,14 +57,23 @@ func NewCard(s string) Card {
 
 func NewCards(s string) []Card {
 	cards := []Card{}
-  for i := 0; i < len(s); i += 2 {
-    cards = append(cards, NewCard(s[i:i+2]))
-  }
-  return cards
+	for i := 0; i < len(s); i += 2 {
+		cards = append(cards, NewCard(s[i:i+2]))
+	}
+	return cards
 }
 
 func (c Card) MarshalText() ([]byte, error) {
 	return []byte(c.String()), nil
+}
+
+func (c *Card) UnmarshalText(text []byte) error {
+	if len(text) != 2 {
+		return errors.New("must have len 2")
+	}
+	*c = NewCard(string(text))
+	// TODO: validate
+	return nil
 }
 
 func (c Card) MarshalJSON() ([]byte, error) {
@@ -69,6 +82,7 @@ func (c Card) MarshalJSON() ([]byte, error) {
 
 func (c *Card) UnmarshalJSON(b []byte) error {
 	*c = NewCard(string(b[1:3]))
+	// TODO: validate
 	return nil
 }
 

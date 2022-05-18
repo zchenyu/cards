@@ -32,6 +32,13 @@ func TestMarshalText(t *testing.T) {
 	assert.Equal(t, "Ah", string(b))
 }
 
+func TestUnmarshalText(t *testing.T) {
+	var c Card
+	assert.Nil(t, c.UnmarshalText([]byte("Ah")))
+	assert.Equal(t, NewCard("Ah"), c)
+	assert.Error(t, c.UnmarshalText([]byte("Ahh")), "must have len 2")
+}
+
 func TestMarshalJSON(t *testing.T) {
 	cards := []Card{
 		NewCard("Ah"),

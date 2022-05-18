@@ -1,6 +1,8 @@
 package cards
 
 import (
+	"errors"
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -60,6 +62,25 @@ func (deck *Deck) Draw(n int) []Card {
 
 func (deck *Deck) Empty() bool {
 	return len(deck.cards) == 0
+}
+
+// Scan implements the Scanner interface.
+func (deck *Deck) Scan(src interface{}) error {
+	switch v := src.(type) {
+	case string:
+		if len(v)%2 != 0 {
+			return errors.New("string must have even length")
+		}
+		deck.cards = make([]Card, len(v)/2)
+		for i := 0; i < len(v); i += 2 {
+			if err := deck.cards[i/2].UnmarshalText([]byte(v)); err != nil {
+				return fmt.Errorf("Could not unmarshal card '%s': %v", v[i:i+2], err)
+			}
+		}
+		return nil
+	default:
+		return errors.New("must be `string` type")
+	}
 }
 
 func initializeFullCards() []Card {
