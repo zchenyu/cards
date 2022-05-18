@@ -55,3 +55,12 @@ func TestEmpty(t *testing.T) {
 	deck.Draw(1)
 	assert.True(t, deck.Empty())
 }
+
+func TestScanAndValue(t *testing.T) {
+	deck := NewDeck()
+	v, err := deck.Value()
+	assert.Nil(t, err)
+	deck2 := &Deck{}
+	assert.Nil(t, deck2.Scan(v))
+	assert.EqualValues(t, deck, deck2)
+}

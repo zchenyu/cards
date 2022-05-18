@@ -73,14 +73,28 @@ func (deck *Deck) Scan(src interface{}) error {
 		}
 		deck.cards = make([]Card, len(v)/2)
 		for i := 0; i < len(v); i += 2 {
-			if err := deck.cards[i/2].UnmarshalText([]byte(v)); err != nil {
-				return fmt.Errorf("Could not unmarshal card '%s': %v", v[i:i+2], err)
+			b := []byte(v[i:i+2])
+			if err := deck.cards[i/2].UnmarshalText(b); err != nil {
+				return fmt.Errorf("Could not unmarshal card '%s': %v", b, err)
 			}
 		}
 		return nil
 	default:
 		return errors.New("must be `string` type")
 	}
+}
+
+// Value implements the Valuer interface. 
+func (deck *Deck) Value() (interface{}, error) {
+	return deck.String(), nil
+}
+
+func (deck *Deck) String() string {
+	s := ""
+	for _, c := range deck.cards {
+		s += c.String()
+	}
+	return s
 }
 
 func initializeFullCards() []Card {
