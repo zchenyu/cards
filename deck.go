@@ -1,6 +1,7 @@
 package cards
 
 import (
+	"database/sql/driver"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -85,7 +86,7 @@ func (deck *Deck) Scan(src interface{}) error {
 }
 
 // Value implements the Valuer interface. 
-func (deck *Deck) Value() (interface{}, error) {
+func (deck *Deck) Value() (driver.Value, error) {
 	return deck.String(), nil
 }
 
